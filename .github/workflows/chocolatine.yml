@@ -11,7 +11,8 @@ jobs:
   check_coding_style:
     runs-on: ubuntu-latest
     name: check_coding_style
-    container: ghcr.io/epitech/coding-style-checker:latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
     steps:
 
       - name: Checkout GH repository
@@ -42,7 +43,8 @@ jobs:
     name: check_program_compilation
     runs-on: ubuntu-latest
     timeout-minutes: 2
-    container: epitechcontent/epitest-docker:latest
+    container:
+      image: epitechcontent/epitest-docker:latest
     needs: [check_coding_style]
     steps:
 
@@ -61,7 +63,8 @@ jobs:
     name: run_tests
     runs-on: ubuntu-latest
     timeout-minutes: 2
-    container: epitechcontent/epitest-docker:latest
+    container:
+      image: epitechcontent/epitest-docker:latest
     needs: [check_program_compilation]
     steps:
 
@@ -83,6 +86,6 @@ jobs:
       - uses: pixta-dev/repository-mirroring-action@v1
         with:
           target_repo_url:
-            ${{ env.MIRROR_URL }}
+            $MIRROR_URL
           ssh_private_key:
             ${{ secrets.GITLAB_SSH_PRIVATE_KEY }}
