@@ -20,10 +20,10 @@ jobs:
           repository: ''
 
       - name: run conding-style.sh
-        run: check.sh . .
+        run: check.sh . /
 
       - name: Display banana report
-        run: cat coding-style-reports.log
+        run: cat /coding-style-reports.log
 
 
       - name: report banana result
