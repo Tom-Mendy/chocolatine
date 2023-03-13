@@ -6,7 +6,7 @@
 */
 
 #include <criterion/criterion.h>
-#include "my_str.h"
+#include "my_int.h"
 
 Test(my_compute_power_rec, basic_test) {
     cr_assert_eq(my_compute_power_rec(10, 2), 100);

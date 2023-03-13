@@ -7,7 +7,7 @@
 
 #include <criterion/criterion.h>
 #include <criterion/redirect.h>
-#include "my_str.h"
+#include "my_int.h"
 
 void redirect_my_put_nbr(void)
 {

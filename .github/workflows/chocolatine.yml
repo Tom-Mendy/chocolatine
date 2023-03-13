@@ -41,6 +41,7 @@ jobs:
   check_program_compilation:
     name: check_program_compilation
     runs-on: ubuntu-latest
+    timeout-minutes: 2
     container: epitechcontent/epitest-docker:latest
     needs: [check_coding_style]
     steps:
@@ -51,7 +52,7 @@ jobs:
           repository: ''
 
       - name: Compile project
-        run: timeout 2m make
+        run: make
 
       - name: Clean project
         run: make clean
@@ -59,6 +60,7 @@ jobs:
   run_tests:
     name: run_tests
     runs-on: ubuntu-latest
+    timeout-minutes: 2
     container: epitechcontent/epitest-docker:latest
     needs: [check_program_compilation]
     steps:
@@ -69,7 +71,7 @@ jobs:
           repository: ''
 
       - name: Compile project
-        run: timeout 2m make tests_run
+        run: make tests_run
 
   to_github:
     runs-on: ubuntu-latest

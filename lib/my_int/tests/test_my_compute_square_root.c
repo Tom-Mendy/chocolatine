@@ -6,7 +6,7 @@
 */
 
 #include <criterion/criterion.h>
-#include "my_str.h"
+#include "my_int.h"
 
 Test(my_compute_square_root, basic_test) {
     cr_assert_eq(my_compute_square_root(4), 2);

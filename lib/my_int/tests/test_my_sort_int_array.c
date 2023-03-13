@@ -6,7 +6,7 @@
 */
 
 #include <criterion/criterion.h>
-#include "my_str.h"
+#include "my_int.h"
 
 Test(my_sort_int_array, basic_true) {
     int tab[] = {6, 0, 9 ,2};

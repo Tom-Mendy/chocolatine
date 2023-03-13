@@ -6,7 +6,7 @@
 */
 
 #include <unistd.h>
-int my_str_len (char const * str);
+int my_str_len(char const * str);
 
 int my_put_str(char const * str)
 {

@@ -6,7 +6,7 @@
 */
 
 #include <criterion/criterion.h>
-#include "my_str.h"
+#include "my_int.h"
 
 Test(my_find_prime_sup, basic_test) {
     cr_assert_eq(my_find_prime_sup(1), 2);
