@@ -1,6 +1,11 @@
 name: chocolatine
 run-name: ${{ github.actor }} asking for main action
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+    # Sequence of patterns matched against refs/heads
+    branches-ignore:
+      - 'ga-ignore-*'
 jobs:
 
   check_coding_style:
