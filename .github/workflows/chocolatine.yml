@@ -25,7 +25,6 @@ jobs:
       - name: Display banana report
         run: cat /tmp/coding-style-reports.log
 
-
       - name: report banana result
         run: |
           NB_ERROR=$(cat /tmp/coding-style-reports.log | wc -l)
