@@ -23,20 +23,29 @@ jobs:
         run: check.sh . /tmp/
 
       - name: Display banana report
-        run: cat /tmp/coding-style-reports.log
+        run: |
+        while read -r line; do
+            file=$(echo "$line" | cut -d: -f1)
+            line_number=$(echo "$line" | cut -d: -f2)
+            message=$(echo "$line" | cut -d: -f3-)
+
+            echo "::error file=$file,line=$line_number::$(echo "$message" | sed 's/"/\\"/g')"
+        done < <(docker run --rm -v "$(pwd):/app" ghcr.io/epitech/coding-style-checker:latest check.sh $(pwd) $(pwd) 2>&1 | grep -E "^./")
+
 
 
       - name: report banana result
         run: |
-          NB_ERROR=$(cat /tmp/coding-style-reports.log | wc -l)
-          if [ $NB_ERROR -gt 0 ]; then
-            ERRORS=$(cat /tmp/coding-style-reports.log);
-              echo "Banana found $NB_ERROR error(s)"
-              echo "$ERRORS"
-              exit 1
-          fi
-          echo "Everything is good ! Keep on coding !"
-          exit 0
+          set -e
+
+          while read -r line; do
+              file=$(echo "$line" | cut -d: -f1)
+              line_number=$(echo "$line" | cut -d: -f2)
+              message=$(echo "$line" | cut -d: -f3-)
+
+              echo "::error file=$file,line=$line_number::$(echo "$message" | sed 's/"/\\"/g')"
+          done < <(docker run --rm -v "$(pwd):/app" ghcr.io/epitech/coding-style-checker:latest check.sh $(pwd) $(pwd) 2>&1 | grep -E "^./")
+
 
   check_program_compilation:
     name: check_program_compilation
@@ -51,7 +60,7 @@ jobs:
           repository: ''
 
       - name: Compile project
-        run: make
+        run: timeout 2m make
 
       - name: Clean project
         run: make cleans
