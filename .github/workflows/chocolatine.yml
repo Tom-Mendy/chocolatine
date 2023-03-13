@@ -23,29 +23,20 @@ jobs:
         run: check.sh . /tmp/
 
       - name: Display banana report
-        run: |
-          while read -r line; do
-              file=$(echo "$line" | cut -d: -f1)
-              line_number=$(echo "$line" | cut -d: -f2)
-              message=$(echo "$line" | cut -d: -f3-)
-
-              echo "::error file=$file,line=$line_number::$(echo "$message" | sed 's/"/\\"/g')"
-          done < <(docker run --rm -v "$(pwd):/app" ghcr.io/epitech/coding-style-checker:latest check.sh $(pwd) $(pwd) 2>&1 | grep -E "^./")
-
+        run: cat /tmp/coding-style-reports.log
 
 
       - name: report banana result
         run: |
-          set -e
-
-          while read -r line; do
-              file=$(echo "$line" | cut -d: -f1)
-              line_number=$(echo "$line" | cut -d: -f2)
-              message=$(echo "$line" | cut -d: -f3-)
-
-              echo "::error file=$file,line=$line_number::$(echo "$message" | sed 's/"/\\"/g')"
-          done < <(docker run --rm -v "$(pwd):/app" ghcr.io/epitech/coding-style-checker:latest check.sh $(pwd) $(pwd) 2>&1 | grep -E "^./")
-
+          NB_ERROR=$(cat /tmp/coding-style-reports.log | wc -l)
+          if [ $NB_ERROR -gt 0 ]; then
+            ERRORS=$(cat /tmp/coding-style-reports.log);
+              echo "Banana found $NB_ERROR error(s)"
+              echo "$ERRORS"
+              exit 1
+          fi
+          echo "Everything is good ! Keep on coding !"
+          exit 0
 
   check_program_compilation:
     name: check_program_compilation
@@ -64,3 +55,31 @@ jobs:
 
       - name: Clean project
         run: make clean
+
+  run_tests:
+    name: run_tests
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker:latest
+    needs: [check_program_compilation]
+    steps:
+
+      - name: Checkout GH repository
+        uses: actions/checkout@master
+        with:
+          repository: ''
+
+      - name: Compile project
+        run: timeout 2m make tests_run
+
+  to_github:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url:
+            git@github.com:EpitechPromo2027/B-DOP-200-BDX-2-1-chocolatine-tom.mendy.git
+          ssh_private_key:
+            ${{ secrets.GITLAB_SSH_PRIVATE_KEY }}
