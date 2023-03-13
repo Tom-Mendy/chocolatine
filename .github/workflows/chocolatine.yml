@@ -23,7 +23,7 @@ jobs:
         run: check.sh . .
 
       - name: Display banana report
-        run: run cat coding-style-reports.log
+        run: cat coding-style-reports.log
 
 
       - name: report banana result
