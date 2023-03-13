@@ -73,8 +73,9 @@ jobs:
       - name: Compile project
         run: make tests_run
 
-  to_github:
+  push_to_mirror:
     runs-on: ubuntu-latest
+    needs: [run_tests]
     steps:
       - uses: actions/checkout@v3
         with:
