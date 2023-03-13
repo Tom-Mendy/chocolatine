@@ -1,4 +1,4 @@
-name: repository_size
+name: mirroring
 run-name: ${{ github.actor }} asking for mirroring
 on: [push, delete]
 jobs:
