@@ -15,7 +15,7 @@ jobs:
           repository: ''
 
       - name: run conding-style.sh
-        run: coding_style.sh . .
+        run: check.sh . .
 
       - name: Display banana report
         run: cat coding-style-reports.log
