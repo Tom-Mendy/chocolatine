@@ -82,7 +82,7 @@ jobs:
     steps:
 
       - name: Checkout GH repository
-      - uses: actions/checkout@master
+        uses: actions/checkout@master
         with:
           fetch-depth: 0
       - uses: pixta-dev/repository-mirroring-action@v1
