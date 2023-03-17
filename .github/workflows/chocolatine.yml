@@ -27,9 +27,8 @@ jobs:
       - name: Display banana report
         run: cat /tmp/coding-style-reports.log
 
-      - name: report banana result
-        run: |
-          echo "::error parameter1={data},parameter2={data}::{/tmp/coding-style-reports.log}"
+      - name: Create annotation for conding style report
+        run: echo "::error file=/tmp/coding-style-reports.log,line=1::Missing semicolon"
 
   check_program_compilation:
     name: check_program_compilation
