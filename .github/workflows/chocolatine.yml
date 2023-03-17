@@ -24,9 +24,6 @@ jobs:
       - name: run conding-style.sh
         run: check.sh . /tmp/
 
-      - name: Display banana report
-        run: cat /tmp/coding-style-reports.log
-
       - name: Create annotation for conding style report
         run: |
           input="/tmp/coding-style-reports.log"
@@ -36,7 +33,6 @@ jobs:
           done < "$input"
           NB_ERROR=$(cat /tmp/coding-style-reports.log | wc -l)
           if [ $NB_ERROR -gt 0 ]; then
-            ERRORS=$(cat /tmp/coding-style-reports.log);
               exit 1
           fi
           exit 0
