@@ -21,10 +21,10 @@ jobs:
         with:
           repository: ''
 
-      - name: run conding-style.sh
+      - name: Run conding-style.sh
         run: check.sh . /tmp/
 
-      - name: Create annotation for conding style report
+      - name: Create annotation for conding style error
         run: |
           input="/tmp/coding-style-reports.log"
           while IFS= read -r line;do
@@ -38,7 +38,7 @@ jobs:
           exit 0
 
   check_program_compilation:
-    name: check_program_compilation
+    name: Check_program_compilation
     runs-on: ubuntu-latest
     timeout-minutes: 2
     container:
