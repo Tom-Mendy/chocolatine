@@ -15,9 +15,9 @@ int my_project(int argc, char **argv)
     for (int i = 0; str[i] != NULL ; i += 1){
         printf("%s\n", str[i]);
     }
-    for (int i = 0; str[i] != NULL; i += 1){
-        free(str[i]);
-    }
+    for (int i = 0; str[i] != NULL; i += 1)
+    {
+        free(str[i]);}
     free(str);
     return 0;
 }
