@@ -28,7 +28,10 @@ jobs:
         run: cat /tmp/coding-style-reports.log
 
       - name: Create annotation for conding style report
-        run: echo "::error file=/tmp/coding-style-reports.log,line=1::Missing semicolon"
+        run: |
+          for $i in "/tmp/coding-style-reports.log"
+            echo "::error file=/tmp/coding-style-reports.log,line=1::Missing semicolon"
+          done
 
   check_program_compilation:
     name: check_program_compilation
