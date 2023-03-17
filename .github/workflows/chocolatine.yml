@@ -29,14 +29,17 @@ jobs:
 
       - name: Create annotation for conding style report
         run: |
-          exit_value = 0
           input="/tmp/coding-style-reports.log"
           while IFS= read -r line;do
-            $exit_value = 1
             fields=($(printf "%s" "$line"|cut -d':' --output-delimiter=' ' -f1-))
             echo "::error title=${fields[2]},file=${fields[0]},line=${fields[1]}::${fields[3]}"
           done < "$input"
-          exit $exit_value
+          NB_ERROR=$(cat /tmp/coding-style-reports.log | wc -l)
+          if [ $NB_ERROR -gt 0 ]; then
+            ERRORS=$(cat /tmp/coding-style-reports.log);
+              exit 1
+          fi
+          exit 0
 
   check_program_compilation:
     name: check_program_compilation
