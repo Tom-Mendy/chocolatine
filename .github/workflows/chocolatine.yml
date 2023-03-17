@@ -29,7 +29,7 @@ jobs:
 
       - name: Create annotation for conding style report
         run: |
-          input="./coding-style-reports.log"
+          input="/tmp/coding-style-reports.log"
           while IFS= read -r line;do
             fields=($(printf "%s" "$line"|cut -d':' --output-delimiter=' ' -f1-))
             echo "::error title=${fields[2]}, file=${fields[0]},line=${fields[1]}::${fields[3]}"
