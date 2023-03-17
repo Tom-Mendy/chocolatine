@@ -29,15 +29,7 @@ jobs:
 
       - name: report banana result
         run: |
-          NB_ERROR=$(cat /tmp/coding-style-reports.log | wc -l)
-          if [ $NB_ERROR -gt 0 ]; then
-            ERRORS=$(cat /tmp/coding-style-reports.log);
-              echo "Banana found $NB_ERROR error(s)"
-              echo "$ERRORS"
-              exit 1
-          fi
-          echo "Everything is good ! Keep on coding !"
-          exit 0
+          echo "::error parameter1={data},parameter2={data}::{toto}"
 
   check_program_compilation:
     name: check_program_compilation
