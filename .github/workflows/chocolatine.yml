@@ -30,10 +30,9 @@ jobs:
       - name: Create annotation for conding style report
         run: |
           input="/tmp/coding-style-reports.logs"
-          while IFS= read -r line
+          while IFS= read line
           do
             echo "::error file=$line,line=1::Missing semicolon"
-            echo "$line"
           done < "$input"
 
   check_program_compilation:
